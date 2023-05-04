@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminPanel\HomeController as AdminHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +18,15 @@ Route::get('/hello', function () {
     return 'Hello World';
 });
 
-Route::get('/', function () {
+Route::get('/',[\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+/*Route::get('/', function () {
     return view('welcome');
 });
-
+*/
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -29,3 +36,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+// ******************************* Admin Panel *****************************************//
+
+Route::get('/admin',[AdminHomeController::class,'index'])->name('admin');
