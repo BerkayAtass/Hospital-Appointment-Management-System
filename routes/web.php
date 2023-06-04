@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminPanel\HomeController as AdminHomeController;
 use App\Http\Controllers\AdminPanel\CategoryController as AdminCategoryController;
+use App\Http\Controllers\AdminPanel\AdminProductController as AdminProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,10 @@ Route::get('/hello', function () {
     return 'Hello World';
 });
 
-Route::get('/',[\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// ******************************* Home Page Root *****************************************//
+
+Route::get('/',[HomeController::class, 'index'])->name('home');
+Route::post('/message',[HomeController::class, 'message'])->name('message');
 
 
 
@@ -45,7 +49,62 @@ Route::prefix('admin')->name('admin.')->group(function (){
 
 
     // ******************************* Admin Category Panel *****************************************//
-    Route::prefix('category')->name('category.')->controller(AdminCategoryController::class)->group(function (){
+    Route::prefix('/category')->name('category.')->controller(AdminCategoryController::class)->group(function (){
+
+        Route::get('/','index')->name('index');
+        Route::get('/create','create')->name('create');
+        Route::post('/store','store')->name('store');
+        Route::get('/edit/{id}','edit')->name('edit');
+        Route::post('/update/{id}','update')->name('update');
+        Route::get('/show/{id}','show')->name('show');
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ******************************* Admin Product Panel *****************************************//
+    Route::prefix('/product')->name('product.')->controller(AdminProductController::class)->group(function (){
 
         Route::get('/','index')->name('index');
         Route::get('/create','create')->name('create');
@@ -56,3 +115,5 @@ Route::prefix('admin')->name('admin.')->group(function (){
 
     });
 });
+
+
